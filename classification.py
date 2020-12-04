@@ -18,5 +18,6 @@ def readInput(file, delimiter):
     return dataset
 
 
-ds = readInput('CtD.csv', ';')
-print(ds)
+ctd = readInput('CtD.csv', ';')
+ttd = readInput('ttd.csv', ',')
+print(ttd)
