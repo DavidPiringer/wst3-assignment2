@@ -121,7 +121,6 @@ print('    ' + str(ctd_train[0]))
 print('\nfirst member of testing dataset: ')
 print('    ' + str(ctd_test[0]))
 
-
 classes_train = getClasses(ctd_train)
 classes_test = getClasses(ctd_test)
 
@@ -154,9 +153,7 @@ classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
 
 printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
 
-
-
-print('\n## Evaluating classification performance using the kNN classifier ... \n')
+print('\n## Evaluating classification performance using naive bayes ... \n')
 
 print(f'~~~~~~~ Naive Bayes ~~~~~~~')
 
