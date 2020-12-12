@@ -96,7 +96,6 @@ def printPredictionResults(classes_train_predicted, classes_test_predicted):
 
 
 ########################################################################
-
 print('## Processing input ...\n')
 
 ctd = readInput('CtD.csv', ';')
@@ -122,10 +121,12 @@ print('    ' + str(ctd_train[0]))
 print('\nfirst member of testing dataset: ')
 print('    ' + str(ctd_test[0]))
 
-print('\n## Evaluating classification performance using the Rocchio classifier ... \n')
+
 classes_train = getClasses(ctd_train)
 classes_test = getClasses(ctd_test)
 
+########################################################################
+print('\n## Evaluating classification performance using the Rocchio classifier ... \n')
 print(f'~~~~~~~ Rocchio (euclidean) ~~~~~~~')
 rocchio_clf = NearestCentroid(metric='euclidean')  # manhattan
 rocchio_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
@@ -141,9 +142,8 @@ printPredictionResults(classes_train_predicted, classes_test_predicted)
 # P1:   FN  TN  Nein
 #      Ja  Nein
 
-
+########################################################################
 print('\n## Evaluating classification performance using the kNN classifier ... \n')
-
 print(f'~~~~~~~ kNN (n_neighbors = 3) ~~~~~~~')
 # experiment with different values vor n_neighbors
 knn_clf = KNeighborsClassifier(n_neighbors=3)
