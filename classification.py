@@ -6,6 +6,7 @@ import csv
 import spacy
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import NearestCentroid, KNeighborsClassifier
 
 # constant variables
@@ -80,7 +81,7 @@ def printClassStats(targetClass, predictions, targets):
     print(f'-----------------------\n')
 
 
-def printPredictionResults(classes_train_predicted, classes_test_predicted):
+def printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test):
     print(f'########## TRAIN ##########')
     printClassStats(classes[0], classes_train_predicted, classes_test)
     printClassStats(classes[1], classes_train_predicted, classes_test)
@@ -120,7 +121,6 @@ print('    ' + str(ctd_train[0]))
 print('\nfirst member of testing dataset: ')
 print('    ' + str(ctd_test[0]))
 
-
 classes_train = getClasses(ctd_train)
 classes_test = getClasses(ctd_test)
 
@@ -133,7 +133,16 @@ rocchio_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
 classes_train_predicted = rocchio_clf.predict(np.array(ttd_train).astype(np.float64))
 classes_test_predicted = rocchio_clf.predict(np.array(ttd_test).astype(np.float64))
 
-printPredictionResults(classes_train_predicted, classes_test_predicted)
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
+print(f'~~~~~~~ Rocchio (manhatten) ~~~~~~~')
+rocchio_clf = NearestCentroid(metric='manhattan')  # euclidean
+rocchio_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = rocchio_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = rocchio_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
 
 #      Pos Neg
 #      A0  A1
@@ -143,6 +152,17 @@ printPredictionResults(classes_train_predicted, classes_test_predicted)
 
 ########################################################################
 print('\n## Evaluating classification performance using the kNN classifier ... \n')
+
+print(f'~~~~~~~ kNN (n_neighbors = 1) ~~~~~~~')
+# experiment with different values vor n_neighbors
+knn_clf = KNeighborsClassifier(n_neighbors=1)
+knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
 print(f'~~~~~~~ kNN (n_neighbors = 3) ~~~~~~~')
 # experiment with different values vor n_neighbors
 knn_clf = KNeighborsClassifier(n_neighbors=3)
@@ -151,6 +171,38 @@ knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
 classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
 classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
 
-printPredictionResults(classes_train_predicted, classes_test_predicted)
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
+print(f'~~~~~~~ kNN (n_neighbors = 10) ~~~~~~~')
+# experiment with different values vor n_neighbors
+knn_clf = KNeighborsClassifier(n_neighbors=10)
+knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
+print(f'~~~~~~~ kNN (n_neighbors = 15) ~~~~~~~')
+# experiment with different values vor n_neighbors
+knn_clf = KNeighborsClassifier(n_neighbors=15)
+knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
+print('\n## Evaluating classification performance using naive bayes ... \n')
+
+print(f'~~~~~~~ Naive Bayes ~~~~~~~')
+
+gnb = GaussianNB()
+gnb.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = gnb.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = gnb.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
 
 ########################################################################
