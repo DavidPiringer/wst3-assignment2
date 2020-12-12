@@ -6,6 +6,7 @@ import csv
 import spacy
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import NearestCentroid, KNeighborsClassifier
 
 # constant variables
@@ -150,6 +151,20 @@ knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
 
 classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
 classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted)
+
+
+
+print('\n## Evaluating classification performance using the kNN classifier ... \n')
+
+print(f'~~~~~~~ Naive Bayes ~~~~~~~')
+
+gnb = GaussianNB()
+gnb.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = gnb.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = gnb.predict(np.array(ttd_test).astype(np.float64))
 
 printPredictionResults(classes_train_predicted, classes_test_predicted)
 
