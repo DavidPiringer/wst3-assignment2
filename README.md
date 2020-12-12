@@ -337,6 +337,5 @@ Bei kNN ist die Anzahl der Nachbarn sehr entscheidend. Uns ist aufgefallen, dass
  
 Bei Rocchio haben wir die zwei Distanzmaße ```euclidean``` und ```manhattan``` ausprobiert und ```euclidean``` funktioniert am besten. 
 
-
 ## Anhang
 * [GitHub-Repository](https://github.com/DavidPiringer/wst3-assignment2)
