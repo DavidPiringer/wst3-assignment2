@@ -135,6 +135,15 @@ classes_test_predicted = rocchio_clf.predict(np.array(ttd_test).astype(np.float6
 
 printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
 
+print(f'~~~~~~~ Rocchio (manhatten) ~~~~~~~')
+rocchio_clf = NearestCentroid(metric='manhattan')  # euclidean
+rocchio_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = rocchio_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = rocchio_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
 #      Pos Neg
 #      A0  A1
 # P0:   TP  FP  Ja
@@ -143,9 +152,40 @@ printPredictionResults(classes_train_predicted, classes_test_predicted, classes_
 
 ########################################################################
 print('\n## Evaluating classification performance using the kNN classifier ... \n')
+
+print(f'~~~~~~~ kNN (n_neighbors = 1) ~~~~~~~')
+# experiment with different values vor n_neighbors
+knn_clf = KNeighborsClassifier(n_neighbors=1)
+knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
 print(f'~~~~~~~ kNN (n_neighbors = 3) ~~~~~~~')
 # experiment with different values vor n_neighbors
 knn_clf = KNeighborsClassifier(n_neighbors=3)
+knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
+print(f'~~~~~~~ kNN (n_neighbors = 10) ~~~~~~~')
+# experiment with different values vor n_neighbors
+knn_clf = KNeighborsClassifier(n_neighbors=10)
+knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
+
+classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
+classes_test_predicted = knn_clf.predict(np.array(ttd_test).astype(np.float64))
+
+printPredictionResults(classes_train_predicted, classes_test_predicted, classes_test)
+
+print(f'~~~~~~~ kNN (n_neighbors = 15) ~~~~~~~')
+# experiment with different values vor n_neighbors
+knn_clf = KNeighborsClassifier(n_neighbors=15)
 knn_clf.fit(np.array(ttd_train).astype(np.float64), classes_train)
 
 classes_train_predicted = knn_clf.predict(np.array(ttd_train).astype(np.float64))
